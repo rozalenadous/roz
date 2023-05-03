@@ -27,7 +27,6 @@ public class roz extends JFrame implements ActionListener, KeyListener{
     public roz(){
         this.calculator = new TipCalculator(0, 0, 0);
         createUIComponents();
-        createActionListeners();
     }
     private void createUIComponents() {
         setContentPane(panel1);
@@ -39,33 +38,51 @@ public class roz extends JFrame implements ActionListener, KeyListener{
         tipField.setText("0");
         billField.setText("0");
         numPeopleField.setText("0");
-    }
 
-    public void createActionListeners(){
         tipInc.addActionListener(this);
         tipDecButton.addActionListener(this);
         numPeopleDec.addActionListener(this);
         numPeopleInc.addActionListener(this);
-
         tipField.addKeyListener(this);
         billField.addKeyListener(this);
         numPeopleField.addKeyListener(this);
-
     }
-    public void calculate(){
-        calculator.setBill(Double.parseDouble(billField.getText())); // do same for tip and ppl
-        calculator.setTipPercentage(Integer.parseInt(tipField.getText()));
 
+    public void calculate(){
+        calculator.setBill(Double.parseDouble(billField.getText()));
+        calculator.setTipPercentage(Integer.parseInt(tipField.getText()));
+        calculator.setNumberOfPeople(Integer.parseInt(numPeopleField.getText()));
+        totalPpl.setText(String.format("Total: %.2f (%.2f each)", calculator.totalBill(), calculator.totalPerPerson()));
         tipTotal.setText(String.format("Tip: %.2 (%.2f each)", calculator.calculateTip(), calculator.tipPerPerson()));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton)e.getSource();
 
+        if (button.equals(tipInc)) {
+            int myTip = Integer.parseInt(tipField.getText());
+            int tip = myTip + 1;
+            tipField.setText("" + tip);
+        } else if (button.equals(tipDecButton)) {
+            int myTip = Integer.parseInt(tipField.getText());
+            int tip = myTip - 1;
+            tipField.setText("" + tip);
+        } else if (button.equals(numPeopleInc)) {
+            int myPpl = Integer.parseInt(numPeopleField.getText());
+            int totPpl = myPpl + 1;
+            numPeopleField.setText("" + totPpl);
+        } else if (button.equals(numPeopleDec)) {
+            int myPpl = Integer.parseInt(numPeopleField.getText());
+            int totPpl = myPpl - 1;
+            numPeopleField.setText("" + totPpl);
+        }
+
+        calculate();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+calculate();
     }
 
     @Override
