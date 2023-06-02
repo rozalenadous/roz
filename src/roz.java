@@ -43,17 +43,17 @@ public class roz extends JFrame implements ActionListener, KeyListener{
         tipDecButton.addActionListener(this);
         numPeopleDec.addActionListener(this);
         numPeopleInc.addActionListener(this);
-        tipField.addKeyListener(this);
-        billField.addKeyListener(this);
-        numPeopleField.addKeyListener(this);
+
     }
 
     public void calculate(){
         calculator.setBill(Double.parseDouble(billField.getText()));
         calculator.setTipPercentage(Integer.parseInt(tipField.getText()));
         calculator.setNumberOfPeople(Integer.parseInt(numPeopleField.getText()));
-        totalPpl.setText(String.format("Total: %.2f (%.2f each)", calculator.totalBill(), calculator.totalPerPerson()));
-        tipTotal.setText(String.format("Tip: %.2 (%.2f each)", calculator.calculateTip(), calculator.tipPerPerson()));
+        System.out.println(numPeopleField.getText());
+        totalPpl.setText(String.format("Total: %.2f", calculator.totalPerPerson()));
+        System.out.println(calculator.totalBill());
+        tipTotal.setText(String.format("Tip: %.2f", calculator.tipPerPerson()));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
